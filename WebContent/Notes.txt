@@ -1,2 +1,2 @@
 Date:13/06/2017
-Issue: Ask for details about Dates column in Conf.Proceedings Sheet.
+Issue: Ask for details about Dates column in Conf.Proceedings and Conf.Presentations Sheet.
