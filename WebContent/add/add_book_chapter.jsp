@@ -41,15 +41,15 @@
 			</tr>
 			<tr>
 				<td>Chapter No.</td>
-				<td><input type="text" name="chapter_no"></td>
+				<td><input type="text" name="chapterNo"></td>
 			</tr>
 			<tr>
 				<td>Chapter Title</td>
-				<td><input type="text" name="chapter_title"></td>
+				<td><input type="text" name="chapterTitle"></td>
 			</tr>
 			<tr>
 				<td>Book Title</td>
-				<td><input type="text" name="book_title"></td>
+				<td><input type="text" name="bookTitle"></td>
 			</tr>
 			<tr>
 				<td>Publisher</td>
@@ -76,7 +76,7 @@
 			</tr>
 			<tr>
 				<td>Month in which published</td>
-				<td><select class="form-control" name="appilcation_month">
+				<td><select class="form-control" name="monthPublished">
 						<%
 							String[] months = new String[] { "January", "Feburary", "March", "April", "May", "June", "July", "August",
 									"September", "October", "November", "December" };
@@ -90,7 +90,7 @@
 			</tr>
 			<tr>
 				<td>Page No.</td>
-				<td><input type="text" name="page_no"></td>
+				<td><input type="text" name="pageNo"></td>
 			</tr>
 			<tr>
 				<td>Book ISBN No.</td>
@@ -98,22 +98,22 @@
 			</tr>
 			<tr>
 				<td>Hyper Link</td>
-				<td><input type="text" name="link"></td>
+				<td><input type="text" name="hyperLink"></td>
 			</tr>
 			<tr>
 				<td>Mention if indexed in WOS/Scopus/Google Scholar/Thomson Reuter/Elsevier</td>
 				<td>
-				 <input type="checkbox" name="index_flag" value="WOS">WOS<br>
-				 <input type="checkbox" name="index_flag" value="Scopus">Scopus<br>
-				 <input type="checkbox" name="index_flag" value="Google Scholar">Google Scholar<br>
-				 <input type="checkbox" name="index_flag" value="Thomson Reuter">Thomson Reuter<br>
-				  <input type="checkbox" name="index_flag" value="Elsevier">Elsevier<br>
-				  <input type="checkbox" name="index_flag" value="none">Not Indexed at all..<br>
+				 <input type="checkbox" name="indexFlag" value="WOS">WOS<br>
+				 <input type="checkbox" name="indexFlag" value="Scopus">Scopus<br>
+				 <input type="checkbox" name="indexFlag" value="Google Scholar">Google Scholar<br>
+				 <input type="checkbox" name="indexFlag" value="Thomson Reuter">Thomson Reuter<br>
+				  <input type="checkbox" name="indexFlag" value="Elsevier">Elsevier<br>
+				  <input type="checkbox" name="indexFlag" value="none">Not Indexed at all..<br>
 				<td>
 			</tr>
 			<tr>
 				<td>Link for Indexing</td>
-				<td><input type="text" name="index_link">
+				<td><input type="text" name="indexLink">
 				  </td>
 			</tr>
 			<tr>
