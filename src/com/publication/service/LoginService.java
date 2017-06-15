@@ -53,8 +53,8 @@ public class LoginService extends HttpServlet {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			String role = request.getParameter("role");
-			if(username.equals("") || password.equals("") || role.equals("")){
-				throw new NullPointerException();
+			if(username.isEmpty()|| password.isEmpty() || role.isEmpty()){
+				throw new IllegalArgumentException();
 			}
 			LoginStatus ls = ldao.validateLogin(username, password, role);
 			if (ls == LoginStatus.SUCCESS) {
@@ -66,7 +66,8 @@ public class LoginService extends HttpServlet {
 			}else if(ls == LoginStatus.NO_SUCH_ACCOUNT_FOUND){
 				writer.println(returnScript("No such account exits..",Redirect.redirect(role, false)));
 			}
-		} catch (NullPointerException e) {
+		} 
+		catch (IllegalArgumentException | NullPointerException e) {
 			e.printStackTrace();
 			writer.println(returnScript("Blank Feilds Found","index.html"));
 		} catch (Exception e) {

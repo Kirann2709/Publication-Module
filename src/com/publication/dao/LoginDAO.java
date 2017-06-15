@@ -17,5 +17,6 @@ public interface LoginDAO {
 	public LoginStatus validateLogin(String username , String password, String role);
 	public Login getLogin(String username);
 	public List<Login> getAllLogins();
+	public boolean saveNewLogin(Login login);
 	
 }

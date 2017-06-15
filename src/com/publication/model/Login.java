@@ -43,12 +43,12 @@ public class Login {
 				+ ", salt=" + salt + "]";
 	}
 	
-	public Login(String username, String password, String status, String role, String salt){
-		this.username = username;
-		this.password = password;
-		this.salt = salt;
-		this.status = status;
-		this.role = role;
+	public Login(Login login){
+		this.username = login.username;
+		this.password = login.password;
+		this.salt = login.salt;
+		this.status = login.status;
+		this.role = login.role;
 	}
 	
 	public Login(){

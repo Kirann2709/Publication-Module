@@ -122,25 +122,23 @@ public class BookChapter {
 				+ ", monthOfPCN=" + monthOfPCN + ", pageNo=" + pageNo + ", isbn=" + isbn + ", hyperLink=" + hyperLink
 				+ ", indexFlag=" + indexFlag + ", indexLink=" + indexLink + "]";
 	}
-	public BookChapter(String pcn, String nameOauthors, String deptt, int chapterNo, String chapterTitle, String bookTitle,
-			String publisher, String nationality, int year, String monthPublished, String monthOfPCN, int pageNo,
-			String isbn, String hyperLink, String indexFlag, String indexLink) {
-		this.pcn = pcn;
-		this.nameOauthors = nameOauthors;
-		this.deptt = deptt;
-		this.chapterNo = chapterNo;
-		this.chapterTitle = chapterTitle;
-		this.bookTitle = bookTitle;
-		this.publisher = publisher;
-		this.nationality = nationality;
-		this.year = year;
-		this.monthPublished = monthPublished;
-		this.monthOfPCN = monthOfPCN;
-		this.pageNo = pageNo;
-		this.isbn = isbn;
-		this.hyperLink = hyperLink;
-		this.indexFlag = indexFlag;
-		this.indexLink = indexLink;
+	public BookChapter(BookChapter bc) {
+		this.pcn = bc.pcn;
+		this.nameOauthors = bc.nameOauthors;
+		this.deptt = bc.deptt;
+		this.chapterNo = bc.chapterNo;
+		this.chapterTitle = bc.chapterTitle;
+		this.bookTitle = bc.bookTitle;
+		this.publisher =bc.publisher;
+		this.nationality = bc.nationality;
+		this.year = bc.year;
+		this.monthPublished = bc.monthPublished;
+		this.monthOfPCN = bc.monthOfPCN;
+		this.pageNo = bc.pageNo;
+		this.isbn = bc.isbn;
+		this.hyperLink = bc.hyperLink;
+		this.indexFlag = bc.indexFlag;
+		this.indexLink = bc.indexLink;
 	}
 	
 	public BookChapter(){

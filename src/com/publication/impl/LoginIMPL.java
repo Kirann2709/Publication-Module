@@ -46,7 +46,13 @@ public class LoginIMPL  implements LoginDAO{
 			ps1.setString(1, username);
 			ResultSet set = ps1.executeQuery();
 			if(set.next()){
-				return new Login(set.getString("username"), set.getString("password"), set.getString("status"), set.getString("role"), set.getString("salt"));
+				Login login =  new Login();
+				login.setUsername(set.getString("username"));
+				login.setPassword(set.getString("password"));
+				login.setStatus(set.getString("status"));
+				login.setRole(set.getString("role"));
+				login.setSalt(set.getString("salt"));
+				return login;
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -61,6 +67,30 @@ public class LoginIMPL  implements LoginDAO{
 	public List<Login> getAllLogins() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public boolean saveNewLogin(Login login){
+		Connection conn = null;
+		PreparedStatement ps1 = null;
+		try{
+			conn = ConnectionFactory.getConnection();
+			ps1 = conn.prepareStatement("insert into login (username, password, salt, role, status)  values (?,?,?,?,?)");
+			ps1.setString(1, login.getUsername());
+			ps1.setString(2, login.getPassword());
+			ps1.setString(3, login.getSalt());
+			ps1.setString(4, login.getRole());
+			ps1.setString(5, login.getStatus());
+			if(ps1.executeUpdate()>0){
+				return true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			ConnectionFactory.close(conn);
+		}
+		
+		return false;
 	}
 
 	
