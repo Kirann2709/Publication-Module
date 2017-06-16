@@ -11,15 +11,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
-
 import com.publication.constants.GeneratePCN;
 import com.publication.dao.BookChapterDAO;
 import com.publication.database.ConnectionFactory;
-import com.publication.database.DataSourceFactory;
 import com.publication.model.BookChapter;
 
 public class BookChapterIMPL implements BookChapterDAO {
