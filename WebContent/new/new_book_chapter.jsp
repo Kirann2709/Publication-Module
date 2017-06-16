@@ -21,9 +21,50 @@
 		}
 	}
 </script>
-<body>
+<style>
+ .container{
+  width:100%;
+ }
 
-	<form action="../add/add_book_chapter.jsp" method="POST">
+li.borderless {
+  border-bottom: 0 none;
+  border-top: none; 
+}
+
+ul{
+ list-style:none;
+}
+ 
+</style>
+<body>
+<!--  #sidebarStyle{
+  background-color: black;
+ }
+  a:link {
+    color: white;
+}
+a:VISITED {
+    color: white;
+}
+ -->
+
+<div class="container">
+ <div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-2" id="sidebarStyle">
+  <ul class="list-group">
+   <li><a href="" class="list-group-item active">New Book Chapter</a></li>
+   <li><a href="new_conf_presentation.jsp" class="list-group-item list-group-item-action">New Conference Presentation</a></li>
+   <li><a href="new_conference_proceeding.jsp" class="list-group-item list-group-item-action">New Conference Proceeding</a></li>
+   <li><a href="new_journal.jsp" class="list-group-item list-group-item-action">New Journal</a></li>
+   <li><a href="new_patents.jsp" class="list-group-item list-group-item-action">New Patents</a></li>
+   <li><a href="new_tech_rep.jsp" class="list-group-item list-group-item-action">New Technical Reports</a></li>
+   <li><a href="new_book.jsp" class="list-group-item list-group-item-action">New Books</a></li>
+   
+  </ul>
+  </div>
+  <div class="col-md-7">
+  <form action="../add/add_book_chapter.jsp" method="POST">
 		<table>
 
 			<tr>
@@ -117,13 +158,20 @@
 				  </td>
 			</tr>
 			<tr>
-				<td><button type="reset">Reset</button></td>
-				<td><button type="submit">Submit</button></td>
+				<td><button  class="btn btn-danger" type="reset">Reset</button></td>
+				<td><button class="btn btn-success" type="submit">Submit</button></td>
 			</tr>
 
 		</table>
 	</form>
+  
+  </div>
+  <div class="col-md-1"></div>
+  
+ </div>
+</div>
 
+	
 
 </body>
 </html>

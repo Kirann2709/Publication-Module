@@ -38,7 +38,8 @@ public class Initiate {
 	    			+ "hyperLink varchar(200),"
 	    			+ "indexFlag varchar(200),"
 	    			+ "indexLink varchar(200),"
-	    			+ "primary key(deptt,bookTitle, chapterTitle, chapterNo, publisher)"
+	    			+ "status int"
+	    			+ "primary key(deptt,bookTitle, chapterTitle, chapterNo, publisher, isbn)"
 	    			+ ");";
 	    	stmt.executeUpdate(q2);
 	    }catch(Exception e){

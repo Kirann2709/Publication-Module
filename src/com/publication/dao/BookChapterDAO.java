@@ -12,6 +12,7 @@ public interface BookChapterDAO {
 	public List<BookChapter> getAllBookChapters()  throws SQLException;
 	public BookChapter getBookChapterByPCN();
 	public boolean delete(String pcn);
+	public boolean approve(String deptt,String bookTitle,String chapterTitle,String chapterNo,String publisher,String isbn, int status);
 	
 
 }

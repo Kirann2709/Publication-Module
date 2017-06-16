@@ -13,6 +13,7 @@
  <!--<jsp:getProperty property="nameOauthors" name="bookChapter"/>-->
  <jsp:useBean id="bookChapterImpl" class="com.publication.impl.BookChapterIMPL" scope="request"/>
  <% 
+    bookChapter.setStatus(0);
     if(bookChapterImpl.saveBookChapter(bookChapter)){
     	response.sendRedirect("../index.html");
     }else{
