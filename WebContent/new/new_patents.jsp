@@ -6,7 +6,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add Patent</title>
+
 <link rel="stylesheet" href="../resources/styles/css/bootstrap.css">
+<style>
+ .container{
+  width:100%;
+ }
+
+li.borderless {
+  border-bottom: 0 none;
+  border-top: none; 
+}
+
+ul{
+ list-style:none;
+}
+ 
+</style>
+
 <script>
  function getNation(){
 	 var form = document.getElementById("nationality");
@@ -18,6 +35,22 @@
 </script>
 </head>
 <body>
+<div class="container">
+ <div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-2" id="sidebarStyle">
+  <ul class="list-group">
+   <li><a href="new_book_chapter.jsp" class="list-group-item ">New Book Chapter</a></li>
+   <li><a href="new_conf_presentation.jsp" class="list-group-item list-group-item-action">New Conference Presentation</a></li>
+   <li><a href="new_conference_proceeding.jsp" class="list-group-item list-group-item-action">New Conference Proceeding</a></li>
+   <li><a href="new_journal.jsp" class="list-group-item list-group-item-action">New Journal</a></li>
+   <li><a href="new_patents.jsp" class="list-group-item list-group-item-action active">New Patents</a></li>
+   <li><a href="new_tech_rep.jsp" class="list-group-item list-group-item-action">New Technical Reports</a></li>
+   <li><a href="new_book.jsp" class="list-group-item list-group-item-action">New Books</a></li>
+   
+  </ul>
+  </div>
+  <div class="col-md-7">
 
 	<form method="get">
 
@@ -134,7 +167,12 @@
 
 		</table>
 
-	</form>
+	</form> </div>
+  <div class="col-md-1"></div>
+  
+ </div>
+</div>
+	
 
 </body>
 </html>
