@@ -75,6 +75,7 @@
         <pathelement location="C:/Users/Deepanshu Jain/Documents/APIs/mysql-connector-java-5.0.8-bin.jar"/>
         <pathelement location="C:/Users/Deepanshu Jain/Documents/APIs/commons-dbutils-1.6.jar"/>
         <pathelement location="C:/Users/Deepanshu Jain/Documents/APIs/jstl-1.2.jar"/>
+        <pathelement location="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/servlet-api.jar"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
