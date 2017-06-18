@@ -5,9 +5,10 @@ import java.sql.Statement;
 
 public class Initiate {
 	
-	Statement stmt;
 	
 	public Initiate(){
+
+		Statement stmt;
 		Connection conn = null;
 	    try{
 	    	conn = ConnectionFactory.getConnection();
@@ -22,7 +23,7 @@ public class Initiate {
 	    			+ ");";
 	    	stmt.executeUpdate(q1);
 	    	
-	    	String q2 = "create table book_chapter("
+	    	String q2 = "create table if not exists book_chapter("
 	    			+ "pcn varchar(200) unique,"
 	    			+ "nameOauthors varchar(200),"
 	    			+ "deptt varchar(200),"
@@ -43,6 +44,34 @@ public class Initiate {
 	    			+ "primary key(deptt,bookTitle, chapterNo, publisher, isbn)"
 	    			+ ");";
 	    	stmt.executeUpdate(q2);
+	    	
+	    	String q3 = "create table if not exists journal("
+	    			+ "pcn varchar(200) unique,"
+	    			+ "nameOauthors varchar(200),"
+	    			+ "deptt varchar(200),"
+	    			+ "title varchar(200),"
+	    			+ "journal varchar(200),"
+	    			+ "nationality varchar(200),"
+	    			+ "year int,"
+	    			+ "monthPublished varchar(200),"
+	    			+ "monthAssigned varchar(200),"
+	    			+ "volume int,"
+	    			+ "issue int,"
+	    			+ "pageNo int,"
+	    			+ "doiNo int,"
+	    			+ "impactFactor varchar(200),"
+	    			+ "whatImpactFactor varchar(200),"
+	    			+ "linkImpFactor varchar(200),"
+	    			+ "paidOrUnpaid varchar(200),"
+	    			+ "paymentFlag varchar(200),"
+	    			+ "pwFlag varchar(200),"
+	    			+ "psFlag varchar(200),"
+	    			+ "pgFlag varchar(200),"
+	    			+ "piFlag varchar(200),"
+	    			+ "status int,"
+	    			+ "writtenBy varchar(200),"
+	    			+ "primary key(deptt, title, volume, issue, pageNo));";
+	    	stmt.executeUpdate(q3);
 	    }catch(Exception e){
 	    	e.printStackTrace();
 	    }

@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.publication.constants.GeneratePCN;
 import com.publication.dao.BookChapterDAO;
@@ -129,7 +127,8 @@ public class BookChapterIMPL implements BookChapterDAO {
 	public boolean action(String deptt, String bookTitle, String chapterTitle, String chapterNo, String publisher,
 			String isbn, int status) {
 		Connection connection;
-		PreparedStatement ps1, ps2;
+		PreparedStatement ps1;
+		PreparedStatement ps2;
 		ArrayList<Integer> list = new ArrayList<>(); 
 		try {
 			connection = ConnectionFactory.getConnection();
@@ -175,8 +174,9 @@ public class BookChapterIMPL implements BookChapterDAO {
 		return false;
 	}
 
-	int getMissing(int a[], int n) {
-		int i, total;
+	public int getMissing(int a[], int n) {
+		int i;
+		int total;
 		total = (n + 1) * (n + 2) / 2;
 		for (i = 1; i <=n; i++)
 			total -= a[i-1];

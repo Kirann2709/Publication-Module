@@ -13,6 +13,6 @@ public interface BookChapterDAO {
 	public BookChapter getBookChapterByPCN();
 	public boolean delete(String pcn);
 	public boolean action(String deptt,String bookTitle,String chapterTitle,String chapterNo,String publisher,String isbn, int status);
-	
+	int getMissing(int a[], int n);
 
 }
