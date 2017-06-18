@@ -1,3 +1,4 @@
+<%@page import="com.publication.constants.FetchDepptCode"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -11,7 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>View Book Chapter</title>
-<link rel="stylesheet" href="../resources/styles/css/bootstrap.css">
+<link rel="stylesheet" href="../../resources/styles/css/bootstrap.css">
 <style>
 .container {
 	width: 100%;
@@ -41,13 +42,30 @@ ul {
 </script>
 <body>
 
-	<jsp:useBean id="dao" class="com.publication.impl.BookChapterIMPL"></jsp:useBean>
+	<jsp:useBean id="dao" class="com.publication.impl.BookChapterIMPL"
+		scope="page"></jsp:useBean>
+	<jsp:useBean id="lao" class="com.publication.impl.LoginIMPL"
+		scope="page"></jsp:useBean>
 	<%
 		List<BookChapter> list = dao.getAllBookChapters();
 		for (BookChapter b : list) {
 			System.out.println(b);
 		}
+
+		String sid = (String) request.getSession(false).getAttribute("sid");
+		System.out.println(sid);
+		if (null == sid) {
+			response.sendRedirect("../");
+			return;
+		}
+		if (!lao.getRoleBySessionID(sid).contains("RDIL")) {
+			response.sendRedirect("../../account/access_denied.jsp");
+			return;
+		}
+
+		//request.setAttribute("dept", dept);
 		request.setAttribute("eList", list);
+		//request.setAttribute("role", role);
 	%>
 	<div class="container">
 		<div class="row">
@@ -78,9 +96,7 @@ ul {
 						<th>HyperLink</th>
 						<th>Index Flag</th>
 						<th>Index Link</th>
-						<th>Approve</th>
-						<th>Reject</th>
-						<th>Delete</th>
+						<th>Status</th>
 					</thead>
 					<c:forEach items="${eList}" var="bookChapter">
 
@@ -101,52 +117,38 @@ ul {
 							<td><c:out value="${bookChapter.hyperLink}" /></td>
 							<td><c:out value="${bookChapter.indexFlag}" /></td>
 							<td><c:out value="${bookChapter.indexLink}" /></td>
-							
-							<c:url value="../approve/approve_book_chapter.jsp" var="approve">
+
+							<c:url value="../../action/action_book_chapter.jsp" var="approve">
 								<c:param name="deptt" value="${bookChapter.deptt}" />
 								<c:param name="chapterNo" value="${bookChapter.chapterNo}" />
 								<c:param name="chapterTitle" value="${bookChapter.chapterTitle}" />
 								<c:param name="bookTitle" value="${bookChapter.bookTitle}" />
 								<c:param name="publisher" value="${bookChapter.publisher}" />
-								<c:param name="isbn" value="${bookChapter.isbn}"/>
+								<c:param name="isbn" value="${bookChapter.isbn}" />
 								<c:param name="level" value="1"></c:param>
 							</c:url>
 							<c:choose>
 								<c:when test="${bookChapter.status==0}">
-									<td><a href='<c:out value="${approve}" />'>Approve</a></td>
+									<td>Pending</td>
 								</c:when>
 								<c:when test="${bookChapter.status==1}">
-									<td><a>Approved by Deptt. Coordinator</a></td>
+									<td><a>Approved by Deptt. Coordinator<br>
+										<a href="${approve}&status=2">Approve</a><br>
+										<a href="${approve}&status=-2">Reject</a></td>
+								</c:when>
+								<c:when test="${bookChapter.status==-1}">
+									<td><a>Rejected</a></td>
 								</c:when>
 								<c:when test="${bookChapter.status==2}">
-									<td><a >Rejected</a></td>
+									<td><a>Approved By RDIL</a></td>
 								</c:when>
-								<c:when test="${bookChapter.status==4}">
-									<td><a >Approved By RDIL</a></td>
+								<c:when test="${bookChapter.status==-2}">
+									<td><a>Rejected By RDIL</a></td>
 								</c:when>
 								<c:otherwise>
 									<td>Invalid</td>
 								</c:otherwise>
 							</c:choose>
-							
-							<c:url value="../reject/reject.jsp" var="reject">
-								<c:param name="deptt" value="${bookChapter.deptt}" />
-								<c:param name="chapterNo" value="${bookChapter.chapterNo}" />
-								<c:param name="chapterTitle" value="${bookChapter.chapterTitle}" />
-								<c:param name="bookTitle" value="${bookChapter.bookTitle}" />
-								<c:param name="publisher" value="${bookChapter.publisher}" />
-								<c:param name="isbn" value="${bookChapter.isbn}"></c:param>
-							</c:url>
-							<td><a href='<c:out value="${reject}" />'>Reject</a></td>
-							<c:url value="../delete/delete.jsp" var="delete">
-								<c:param name="deptt" value="${bookChapter.deptt}" />
-								<c:param name="chapterNo" value="${bookChapter.chapterNo}" />
-								<c:param name="chapterTitle" value="${bookChapter.chapterTitle}" />
-								<c:param name="bookTitle" value="${bookChapter.bookTitle}" />
-								<c:param name="publisher" value="${bookChapter.publisher}" />
-								<c:param name="isbn" value="${bookChapter.isbn}"></c:param>
-							</c:url>
-							<td><a href='<c:out value="${delete}" />'>Delete</a></td>
 						</tr>
 
 					</c:forEach>

@@ -14,6 +14,8 @@ public class Redirect {
 		break;
 		case "ROLE_RDIL": url =  "faculty/faculty_home.jsp";
 		break;
+		case "ROLE_DC_CSE": url =  "department_coord/coordinator_home.jsp";
+		break;
 		default:
 		}
 		return url;

@@ -19,6 +19,15 @@ public class BookChapter {
 	private String indexFlag;
 	private String indexLink;
 	private int status;
+	private String writtenBy;
+
+	public String getWrittenBy() {
+		return writtenBy;
+	}
+
+	public void setWrittenBy(String writtenBy) {
+		this.writtenBy = writtenBy;
+	}
 
 	// status 0 = pending
 	// status 1 = approved by dept cor
@@ -165,7 +174,8 @@ public class BookChapter {
 				+ chapterNo + ", chapterTitle=" + chapterTitle + ", bookTitle=" + bookTitle + ", publisher=" + publisher
 				+ ", nationality=" + nationality + ", year=" + year + ", monthPublished=" + monthPublished
 				+ ", monthOfPCN=" + monthOfPCN + ", pageNo=" + pageNo + ", isbn=" + isbn + ", hyperLink=" + hyperLink
-				+ ", indexFlag=" + indexFlag + ", indexLink=" + indexLink + ", status=" + status + "]";
+				+ ", indexFlag=" + indexFlag + ", indexLink=" + indexLink + ", status=" + status + ", writtenBy="
+				+ writtenBy + "]";
 	}
 
 	public BookChapter(BookChapter bookChapter) {

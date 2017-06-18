@@ -25,6 +25,7 @@ ul{
 
 </head>
 <body>
+<jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container">
  <div class="row">
   <div class="col-md-1"></div>

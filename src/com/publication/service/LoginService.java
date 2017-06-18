@@ -2,12 +2,14 @@ package com.publication.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.publication.constants.LoginStatus;
 import com.publication.constants.Redirect;
@@ -53,12 +55,17 @@ public class LoginService extends HttpServlet {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			String role = request.getParameter("role");
+			System.out.println(username+password+role);
 			if(username.isEmpty()|| password.isEmpty() || role.isEmpty()){
 				throw new IllegalArgumentException();
 			}
 			LoginStatus ls = ldao.validateLogin(username, password, role);
 			if (ls == LoginStatus.SUCCESS) {
-				response.sendRedirect(Redirect.redirect(role, true));
+				HttpSession sess = request.getSession(false);
+				sess.setAttribute("sid", generateSessionID());
+				if(ldao.insertSessionID(username, sess.getAttribute("sid").toString())){
+					response.sendRedirect(Redirect.redirect(role, true));
+				};
 			}else if (ls == LoginStatus.WRONG_PASSWORD) {
 				writer.println(returnScript("Wrong password provided, try again..",Redirect.redirect(role, false)));
 			}else if (ls == LoginStatus.DEACTIVATED) {
@@ -82,4 +89,7 @@ public class LoginService extends HttpServlet {
 				+ "</script>";
 	}
 
+	public String generateSessionID(){
+		return  UUID.randomUUID().toString();
+	}
 }

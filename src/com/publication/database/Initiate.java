@@ -17,7 +17,8 @@ public class Initiate {
 	    			+ "password varchar(200) not null,"
 	    			+ "role varchar(200),"
 	    			+ "status varchar(200),"
-	    			+ "salt varchar(200)"
+	    			+ "salt varchar(200),"
+	    			+ "sid varchar(200) unique"
 	    			+ ");";
 	    	stmt.executeUpdate(q1);
 	    	
@@ -38,8 +39,8 @@ public class Initiate {
 	    			+ "hyperLink varchar(200),"
 	    			+ "indexFlag varchar(200),"
 	    			+ "indexLink varchar(200),"
-	    			+ "status int"
-	    			+ "primary key(deptt,bookTitle, chapterTitle, chapterNo, publisher, isbn)"
+	    			+ "status int,"
+	    			+ "primary key(deptt,bookTitle, chapterNo, publisher, isbn)"
 	    			+ ");";
 	    	stmt.executeUpdate(q2);
 	    }catch(Exception e){
