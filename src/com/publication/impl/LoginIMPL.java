@@ -24,7 +24,6 @@ public class LoginIMPL  implements LoginDAO{
 			return LoginStatus.NO_SUCH_ACCOUNT_FOUND;
 		}
 		if(role.equals(login.getRole())){
-			
 			if(login.getStatus().equals("active")){
 				System.out.println(BCrypt.hashpw(password, login.getSalt())+" "+login.getPassword());
 				

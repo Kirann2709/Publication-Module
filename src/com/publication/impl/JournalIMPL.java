@@ -28,7 +28,7 @@ public class JournalIMPL implements JournalDAO {
 			connection = ConnectionFactory.getConnection();
 			ps = connection.prepareStatement(
 					"insert into journal (nameOauthors, deptt, title, journal, nationality, year, monthPublished, volume, issue, pageNo,"
-					+ " doiNo, impactFactor, whatImpactFactor, linkImpFactor, paidOrUnpaid, paymentFlag, pwflag, psflag, pgflag, piflag, status, written_by) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					+ " doiNo, impactFactor, whatImpactFactor, linkImpFactor, paidOrUnpaid, paymentFlag, pwflag, psflag, pgflag, piflag, status, writtenBy) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, journal.getNameOauthors());
 			ps.setString(2, journal.getDeptt().toUpperCase());
 			ps.setString(3, journal.getTitle());
@@ -138,7 +138,7 @@ public class JournalIMPL implements JournalDAO {
 			ResultSet rs = ps1.executeQuery();
 			String pcn;
 			if(!rs.next()){
-				pcn = GeneratePCN.generatePCN(deptt, "B", 1);
+				pcn = GeneratePCN.generatePCN(deptt, "J", 1);
 			}else{
 				rs.beforeFirst();
 				while(rs.next()){
@@ -147,11 +147,11 @@ public class JournalIMPL implements JournalDAO {
 				}
 				int[] array = list.stream().mapToInt(i->i).toArray();
 				int sno = getMissing(array, array.length);
-				pcn = GeneratePCN.generatePCN(deptt, "B", sno);
+				pcn = GeneratePCN.generatePCN(deptt, "J", sno);
 			}
 			Calendar cal = Calendar.getInstance();
 			String month = new SimpleDateFormat("MMM").format(cal.getTime());
-			ps2 = connection.prepareStatement("update journal set pcn, status=?, monthAssigned=? where deptt=? and title=? and volume=? and issue=? and pageNo=?");
+			ps2 = connection.prepareStatement("update journal set pcn=?, status=?, monthAssigned=? where deptt=? and title=? and volume=? and issue=? and pageNo=?");
 			if(status == -1){
 				ps2.setNull(1, Types.VARCHAR);
 			}else if(status == 1){

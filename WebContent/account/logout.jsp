@@ -15,8 +15,9 @@ if (request.getSession(false).getAttribute("sid") == null) {
     return;
 } else {
     lao.deleteSessionID(request.getSession(false).getAttribute("sid").toString());
+    request.getSession(false).removeAttribute("sid");
     request.getSession(false).invalidate();
-    response.sendRedirect("../index.html");
+    response.sendRedirect("../index.jsp");
 }
 
 %>

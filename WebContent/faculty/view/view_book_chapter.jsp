@@ -54,12 +54,13 @@ ul {
 		String sid = (String) request.getSession(false).getAttribute("sid");
 		if (null == sid) {
 			response.sendRedirect("../account/access_denied.jsp");
+			return;
 		}
 		pageContext.setAttribute("principal", lao.getUsernameBySessionID(sid));
 		System.out.println(pageContext.getAttribute("principal"));
 		request.setAttribute("eList", list);
 	%>
-	<jsp:include page="../../common/header.jsp"></jsp:include>
+	<jsp:include page="../../common/header_view_faculty.jsp"></jsp:include>
 	<div class="container">
 		<div class="row">
 

@@ -45,6 +45,14 @@ else{e.value="no";location.reload();}
 }
 </script>
 <body>
+<jsp:useBean id="lao" class="com.publication.impl.LoginIMPL"></jsp:useBean>
+<%
+String sid  = (String) request.getSession(false).getAttribute("sid");
+if(null==sid){
+	response.sendRedirect("../account/access_denied.jsp");
+}
+System.out.println(sid);
+%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container">
  <div class="row">
@@ -64,7 +72,7 @@ else{e.value="no";location.reload();}
   <div class="col-md-7">
 
 	<h2>Journal Add Form</h2>
-	<form method="GET">
+	<form method="POST" action="../add/add_journal.jsp">
 		<table class="form-group">
 			<tr>
 				<td>Name of authors</td>
@@ -204,6 +212,7 @@ else{e.value="no";location.reload();}
 				</select></td>
 			</tr>
 			<tr>
+			<input type="hidden" name="writtenBy" value="<%=lao.getUsernameBySessionID(sid)%>"/>
 				<td>
 					<button class="form-control" type="reset">Reset</button>
 				</td>

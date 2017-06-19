@@ -62,10 +62,7 @@ ul {
 			response.sendRedirect("../../account/access_denied.jsp");
 			return;
 		}
-
-		//request.setAttribute("dept", dept);
 		request.setAttribute("eList", list);
-		//request.setAttribute("role", role);
 	%>
 	<div class="container">
 		<div class="row">
@@ -132,7 +129,7 @@ ul {
 									<td>Pending</td>
 								</c:when>
 								<c:when test="${bookChapter.status==1}">
-									<td><a>Approved by Deptt. Coordinator<br>
+									<td><a>Approved by Deptt. Coordinator</a><br>
 										<a href="${approve}&status=2">Approve</a><br>
 										<a href="${approve}&status=-2">Reject</a></td>
 								</c:when>

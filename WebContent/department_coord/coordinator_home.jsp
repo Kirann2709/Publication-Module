@@ -6,7 +6,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resources/styles/css/bootstrap.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat"
+	rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Lato"
+	rel="stylesheet" type="text/css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
 </head>
 <input type="hidden" id="refreshed" value="no">
 <script type="text/javascript">
@@ -52,5 +61,6 @@ ul {
 	%>
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<a href="view/view_book_chapter.jsp">Click here</a>
+	<a href="../account/logout.jsp">Logout</a>
 </body>
 </html>

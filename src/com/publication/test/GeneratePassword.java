@@ -5,7 +5,7 @@ import com.publication.constants.BCrypt;
 public class GeneratePassword {
 	
 	   public static void main(String[] args) {
-	        String pas = "dc";
+	        String pas = "dc02";
 	        String base = BCrypt.gensalt();
 	        String password = BCrypt.hashpw(pas, base);
 	        System.out.println(base + "\n" + password);
