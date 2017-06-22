@@ -15,7 +15,7 @@
  <% 
     bookChapter.setStatus(0);
     if(bookChapterImpl.saveBookChapter(bookChapter)){
-    	response.sendRedirect("../index.html");
+    	response.sendRedirect("../faculty/faculty_home.jsp");
     }else{
     	response.sendRedirect("../new/new_book_chapter.jsp");
     }

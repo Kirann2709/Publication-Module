@@ -45,7 +45,15 @@ else{e.value="no";location.reload();}
 }
 </script>
 <body>
-
+<jsp:useBean id="lao" class="com.publication.impl.LoginIMPL"></jsp:useBean>
+<%
+String sid  = (String) request.getSession(false).getAttribute("sid");
+if(null==sid){
+	response.sendRedirect("../account/access_denied.jsp");
+}
+System.out.println(sid);
+%>
+<jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container">
  <div class="row">
   <div class="col-md-1"></div>
@@ -64,7 +72,7 @@ else{e.value="no";location.reload();}
   <div class="col-md-7">
 
 	<h2>Journal Add Form</h2>
-	<form method="GET">
+	<form method="POST" action="../add/add_journal.jsp">
 		<table class="form-group">
 			<tr>
 				<td>Name of authors</td>
@@ -91,6 +99,13 @@ else{e.value="no";location.reload();}
 					placeholder="Journal.."></td>
 			</tr>
 			<tr>
+				<td>International/National</td>
+				<td><select name="nationality"  id="nationality" class="form-control">
+						<option value="International">International</option>
+						<option value="National">National</option>
+				</select></td>
+			</tr>
+			<tr>
 				<td>Year</td>
 				<td><select class="form-control" name="year">
 						<%
@@ -104,7 +119,7 @@ else{e.value="no";location.reload();}
 			</tr>
 			<tr>
 				<td>Month in which published</td>
-				<td><select class="form-control" name="month_published">
+				<td><select class="form-control" name="monthPublished">
 						<%
 							String[] months = new String[] { "January", "Feburary", "March", "April", "May", "June", "July", "August",
 									"September", "October", "November", "December" };
@@ -128,33 +143,33 @@ else{e.value="no";location.reload();}
 			</tr>
 			<tr>
 				<td>Page No.</td>
-				<td><input type="text" class="form-control" name="page_no"
+				<td><input type="text" class="form-control" name="pageNo"
 					placeholder="Page No.."></td>
 			</tr>
 			<tr>
 				<td>DOI No.</td>
-				<td><input type="text" class="form-control" name="doi_no"
+				<td><input type="text" class="form-control" name="doiNo"
 					required="on" placeholder="DOI No.."></td>
 			</tr>
 			<tr>
 				<td>Impact Factor</td>
-				<td><input type="text" class="form-control" name="imp_factor"
+				<td><input type="text" class="form-control" name="impactFactor"
 					placeholder="Impact Factor"></td>
 			</tr>
 			<tr>
 				<td>Specify which impact factor</td>
 				<td><input type="text" class="form-control"
-					name="what_imp_factor" placeholder="Which"></td>
+					name="whatImpactFactor" placeholder="Which"></td>
 			</tr>
 			<tr>
 				<td>Link for Impact factor</td>
 				<td><input type="text" class="form-control"
-					name="link_imp_factor" placeholder="Link goes here.."></td>
+					name="linkImpFactor" placeholder="Link goes here.."></td>
 			</tr>
 			<tr>
 				<td>Paid/Unpaid</td>
-				<td><select class="form-control" id="paid_unpaid"
-					onclick="disable_unpaid()" name="paid_unpaid">
+				<td><select class="form-control" id="paidOrUnpaid"
+					onclick="disable_unpaid()" name="paidOrUnpaid">
 						<option value="Paid" selected="selected">Paid</option>
 						<option value="Unpaid">Unpaid</option>
 				</select></td>
@@ -162,7 +177,7 @@ else{e.value="no";location.reload();}
 
 			<tr>
 				<td>Payment done or not</td>
-				<td><select class="form-control" id="payment_flag"
+				<td><select class="form-control" id="paymentFlag"
 					name="payment_flag">
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
@@ -170,33 +185,34 @@ else{e.value="no";location.reload();}
 			</tr>
 			<tr>
 				<td>PW: Publication reported in Web of Science</td>
-				<td><select class="form-control" name="pw_flag">
+				<td><select class="form-control" name="pwFlag">
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
 				</select></td>
 			</tr>
 			<tr>
 				<td>PS: Publication reported in Scopus</td>
-				<td><select class="form-control" name="ps_flag">
+				<td><select class="form-control" name="psFlag">
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
 				</select></td>
 			</tr>
 			<tr>
 				<td>PG: Publication reported in Google Scholar</td>
-				<td><select class="form-control" name="pg_flag">
+				<td><select class="form-control" name="pgFlag">
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
 				</select></td>
 			</tr>
 			<tr>
 				<td>PI: Publication reported in Indian Citation Index</td>
-				<td><select class="form-control" name="pi_flag">
+				<td><select class="form-control" name="piFlag">
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
 				</select></td>
 			</tr>
 			<tr>
+			<input type="hidden" name="writtenBy" value="<%=lao.getUsernameBySessionID(sid)%>"/>
 				<td>
 					<button class="form-control" type="reset">Reset</button>
 				</td>

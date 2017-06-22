@@ -1,15 +1,13 @@
 package com.publication.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.publication.constants.GeneratePCN;
 import com.publication.dao.BookChapterDAO;
@@ -29,9 +27,9 @@ public class BookChapterIMPL implements BookChapterDAO {
 		try {
 			connection = ConnectionFactory.getConnection();
 			ps = connection.prepareStatement(
-					"insert into book_chapter (nameOauthors, deptt, chapterNo, chapterTitle, bookTitle, publisher, nationality, year, monthPublished, pageNo, isbn, hyperLink, indexFlag, indexLink, status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					"insert into book_chapter (nameOauthors, deptt, chapterNo, chapterTitle, bookTitle, publisher, nationality, year, monthPublished, pageNo, isbn, hyperLink, indexFlag, indexLink, status, written_by) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, bookChapter.getNameOauthors());
-			ps.setString(2, bookChapter.getDeptt());
+			ps.setString(2, bookChapter.getDeptt().toUpperCase());
 			ps.setInt(3, bookChapter.getChapterNo());
 			ps.setString(4, bookChapter.getChapterTitle());
 			ps.setString(5, bookChapter.getBookTitle());
@@ -45,6 +43,7 @@ public class BookChapterIMPL implements BookChapterDAO {
 			ps.setString(13, bookChapter.getIndexFlag());
 			ps.setString(14, bookChapter.getIndexLink());
 			ps.setInt(15, bookChapter.getStatus());
+			ps.setString(16, bookChapter.getWrittenBy());
 			if (ps.executeUpdate() > 0) {
 				return true;
 			}
@@ -75,7 +74,7 @@ public class BookChapterIMPL implements BookChapterDAO {
 				BookChapter bc = new BookChapter();
 				bc.setPcn(rs.getString("pcn"));
 				bc.setNameOauthors(rs.getString("nameOauthors"));
-				bc.setDeptt(rs.getString("deptt"));
+				bc.setDeptt(rs.getString("deptt").toUpperCase());
 				bc.setChapterNo(rs.getInt("chapterNo"));
 				bc.setChapterTitle(rs.getString("chapterTitle"));
 				bc.setBookTitle(rs.getString("bookTitle"));
@@ -90,6 +89,7 @@ public class BookChapterIMPL implements BookChapterDAO {
 				bc.setIndexFlag(rs.getString("indexFlag"));
 				bc.setIndexLink(rs.getString("indexLink"));
 				bc.setStatus(rs.getInt("status"));
+				bc.setWrittenBy(rs.getString("written_by"));
 				list.add(bc);
 			}
 		} catch (Exception e) {
@@ -123,10 +123,11 @@ public class BookChapterIMPL implements BookChapterDAO {
 	}
 
 	@Override
-	public boolean approve(String deptt, String bookTitle, String chapterTitle, String chapterNo, String publisher,
+	public boolean action(String deptt, String bookTitle, String chapterTitle, String chapterNo, String publisher,
 			String isbn, int status) {
 		Connection connection;
-		PreparedStatement ps1, ps2;
+		PreparedStatement ps1;
+		PreparedStatement ps2;
 		ArrayList<Integer> list = new ArrayList<>(); 
 		try {
 			connection = ConnectionFactory.getConnection();
@@ -134,25 +135,28 @@ public class BookChapterIMPL implements BookChapterDAO {
 			ResultSet rs = ps1.executeQuery();
 			String pcn;
 			if(!rs.next()){
-				pcn = GeneratePCN.generatePCN(deptt, "B", 0);
+				pcn = GeneratePCN.generatePCN(deptt, "B", 1);
 			}else{
-				rs.previous();
+				rs.beforeFirst();
 				while(rs.next()){
 					String result = rs.getString("pcn");
-					Pattern pattern = Pattern.compile("[0-9]{3}");
-					Matcher matcher = pattern.matcher(result);
-					if(matcher.matches()){
-						list.add(Integer.parseInt(result.substring(matcher.start(),matcher.end())));					}
+					list.add(Integer.parseInt(result.substring(8)));
 				}
 				int[] array = list.stream().mapToInt(i->i).toArray();
 				int sno = getMissing(array, array.length);
 				pcn = GeneratePCN.generatePCN(deptt, "B", sno);
 			}
-			Calendar cal = Calendar.getInstance();
-			String month = new SimpleDateFormat("MMM").format(cal.getTime());
 			ps2 = connection.prepareStatement("update book_chapter set pcn=?, monthAssigned=?, status=? where deptt=? and bookTitle=? and chapterTitle=? and chapterNo=? and isbn =?");
-			ps2.setString(1, pcn);
-			ps2.setString(2, month);
+			if(status == -1){
+				ps2.setNull(1, Types.VARCHAR);
+			}else if(status == 1){
+				ps2.setString(1, pcn.toUpperCase());
+			}else if(status == 2 || status==-2){
+				ps2.setString(1, pcn.toUpperCase());
+			}
+			long millis=System.currentTimeMillis();  
+			Date date = new Date(millis);
+			ps2.setDate(2, date);
 			ps2.setInt(3, status);
 			ps2.setString(4, deptt);
 			ps2.setString(5, bookTitle);
@@ -169,11 +173,12 @@ public class BookChapterIMPL implements BookChapterDAO {
 		return false;
 	}
 
-	int getMissing(int a[], int n) {
-		int i, total;
+	public int getMissing(int a[], int n) {
+		int i;
+		int total;
 		total = (n + 1) * (n + 2) / 2;
-		for (i = 0; i < n; i++)
-			total -= a[i];
+		for (i = 1; i <=n; i++)
+			total -= a[i-1];
 		return total;
 	}
 

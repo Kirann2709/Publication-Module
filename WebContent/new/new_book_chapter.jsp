@@ -25,16 +25,19 @@
  .container{
   width:100%;
  }
-
-li.borderless {
-  border-bottom: 0 none;
-  border-top: none; 
+.borderless {
+	border-bottom: 0 none;
+	border-top: none;
+	border-left:0;
+	border-right:0;
+	background: #d9dfe0;
 }
-
-ul{
- list-style:none;
+ul {
+	list-style: none;
 }
- 
+#sidebarStyle{
+ background: #d9dfe0;
+}
 </style>
 <body>
 <!--  #sidebarStyle{
@@ -47,23 +50,30 @@ a:VISITED {
     color: white;
 }
  -->
-
+<%
+String sid  = (String) request.getSession(false).getAttribute("sid");
+if(null==sid){
+	response.sendRedirect("../account/access_denied.jsp");
+}
+System.out.println(sid);
+%>
+<jsp:useBean id="lao" class="com.publication.impl.LoginIMPL"></jsp:useBean>
+<jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container">
  <div class="row">
-  <div class="col-md-1"></div>
   <div class="col-md-2" id="sidebarStyle">
   <ul class="list-group">
-   <li><a href="" class="list-group-item active">New Book Chapter</a></li>
-   <li><a href="new_conf_presentation.jsp" class="list-group-item list-group-item-action">New Conference Presentation</a></li>
-   <li><a href="new_conference_proceeding.jsp" class="list-group-item list-group-item-action">New Conference Proceeding</a></li>
-   <li><a href="new_journal.jsp" class="list-group-item list-group-item-action">New Journal</a></li>
-   <li><a href="new_patents.jsp" class="list-group-item list-group-item-action">New Patents</a></li>
-   <li><a href="new_tech_rep.jsp" class="list-group-item list-group-item-action">New Technical Reports</a></li>
-   <li><a href="new_book.jsp" class="list-group-item list-group-item-action">New Books</a></li>
+   <li><a href="" class="list-group-item list-group-item-action borderless">New Book Chapter</a></li>
+   <li><a href="new_conf_presentation.jsp" class="list-group-item list-group-item-action borderless">New Conference Presentation</a></li>
+   <li><a href="new_conference_proceeding.jsp" class="list-group-item list-group-item-action borderless">New Conference Proceeding</a></li>
+   <li><a href="new_journal.jsp" class="list-group-item list-group-item-action borderless">New Journal</a></li>
+   <li><a href="new_patents.jsp" class="list-group-item list-group-item-action borderless">New Patents</a></li>
+   <li><a href="new_tech_rep.jsp" class="list-group-item list-group-item-action borderless">New Technical Reports</a></li>
+   <li><a href="new_book.jsp" class="list-group-item list-group-item-action borderless">New Books</a></li>
    
   </ul>
   </div>
-  <div class="col-md-7">
+  <div class="col-md-10">
   <form action="../add/add_book_chapter.jsp" method="POST">
 		<table>
 
@@ -157,7 +167,9 @@ a:VISITED {
 				<td><input type="text" name="indexLink">
 				  </td>
 			</tr>
+			
 			<tr>
+			<input type="hidden" name="writtenBy" value="<%=lao.getUsernameBySessionID(sid)%>"/>
 				<td><button  class="btn btn-danger" type="reset">Reset</button></td>
 				<td><button class="btn btn-success" type="submit">Submit</button></td>
 			</tr>
@@ -166,7 +178,7 @@ a:VISITED {
 	</form>
   
   </div>
-  <div class="col-md-1"></div>
+  
   
  </div>
 </div>

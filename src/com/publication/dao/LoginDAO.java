@@ -18,5 +18,10 @@ public interface LoginDAO {
 	public Login getLogin(String username);
 	public List<Login> getAllLogins();
 	public boolean saveNewLogin(Login login);
+	public String getRoleBySessionID(String sessionID);
+	public boolean insertSessionID(String id, String sessionID);
+	public String getUsernameBySessionID(String sessionID);
+	public void deleteSessionID(String sessionID);
 	
+			
 }
