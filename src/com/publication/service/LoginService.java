@@ -63,29 +63,32 @@ public class LoginService extends HttpServlet {
 			System.out.println(ls);
 			if (ls == LoginStatus.SUCCESS) {
 				HttpSession sess = request.getSession();
-				System.out.println(sess);
 				String sid = generateSessionID();
 				System.out.println(sid);
 				sess.setAttribute("sid", sid);
-				System.out.println("OLD"+sess.getAttribute("sid"));
-				
-				
 				if(ldao.insertSessionID(username, sess.getAttribute("sid").toString())){
+					System.out.println(Redirect.redirect(role, true));
 					response.sendRedirect(Redirect.redirect(role, true));
+					return;
 				}
 			}else if (ls == LoginStatus.WRONG_PASSWORD) {
 				writer.println(returnScript("Wrong password provided, try again..",Redirect.redirect(role, false)));
+				return;
 			}else if (ls == LoginStatus.DEACTIVATED) {
 				writer.println(returnScript("Account is decativated for some reasons, to continue contact admin..",Redirect.redirect(role, false)));
+				return;
 			}else if(ls == LoginStatus.NO_SUCH_ACCOUNT_FOUND){
 				writer.println(returnScript("No such account exits..",Redirect.redirect(role, false)));
+				return;
 			}else if(ls== LoginStatus.NOT_AUTHORIZED){
 				writer.println(returnScript("You are not authorized for enquired role..",Redirect.redirect(role, false)));
+				return;
 			}
 		} 
 		catch (IllegalArgumentException | NullPointerException e) {
 			e.printStackTrace();
-			writer.println(returnScript("Blank Feilds Found","index.html"));
+			writer.println(returnScript("Blank Feilds Found","index.jsp"));
+			return;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

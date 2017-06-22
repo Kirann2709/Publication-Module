@@ -31,6 +31,7 @@
 		if (sess != null) {
 			String sid =(String) request.getSession(false).getAttribute("sid");
 			if (sid != null) {
+				System.out.println(lao.getUsernameBySessionID(sid));
 				response.sendRedirect(Redirect.redirect(lao.getRoleBySessionID(sid), true));
 				return;
 			}

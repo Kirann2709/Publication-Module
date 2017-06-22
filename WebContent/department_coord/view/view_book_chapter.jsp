@@ -117,7 +117,7 @@ ul {
 								<td><c:out value="${bookChapter.indexFlag}" /></td>
 								<td><c:out value="${bookChapter.indexLink}" /></td>
 
-								<c:url value="../action/action_book_chapter.jsp" var="approve">
+								<c:url value="../../action/action_book_chapter.jsp" var="approve">
 									<c:param name="deptt" value="${bookChapter.deptt}" />
 									<c:param name="chapterNo" value="${bookChapter.chapterNo}" />
 									<c:param name="chapterTitle"

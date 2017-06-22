@@ -53,13 +53,15 @@ ul {
 	}
 </script>
 <body>
+<jsp:useBean id="lao" class="com.publication.impl.LoginIMPL"></jsp:useBean>
 <%
 String sid  = (String) request.getSession(false).getAttribute("sid");
+System.out.println("AT FACULTY"+sid);
 if(null==sid){
 	response.sendRedirect("../account/access_denied.jsp");
 	return;
 }
-if(!sid.equals("ROLE_FACULTY")){
+if(!lao.getRoleBySessionID(sid).equals("ROLE_FACULTY")){
 	response.sendRedirect("../account/access_denied.jsp");
 	return;
 }

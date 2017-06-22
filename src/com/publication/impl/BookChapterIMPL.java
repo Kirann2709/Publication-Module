@@ -1,13 +1,12 @@
 package com.publication.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import com.publication.constants.GeneratePCN;
@@ -147,8 +146,6 @@ public class BookChapterIMPL implements BookChapterDAO {
 				int sno = getMissing(array, array.length);
 				pcn = GeneratePCN.generatePCN(deptt, "B", sno);
 			}
-			Calendar cal = Calendar.getInstance();
-			String month = new SimpleDateFormat("MMM").format(cal.getTime());
 			ps2 = connection.prepareStatement("update book_chapter set pcn=?, monthAssigned=?, status=? where deptt=? and bookTitle=? and chapterTitle=? and chapterNo=? and isbn =?");
 			if(status == -1){
 				ps2.setNull(1, Types.VARCHAR);
@@ -157,7 +154,9 @@ public class BookChapterIMPL implements BookChapterDAO {
 			}else if(status == 2 || status==-2){
 				ps2.setString(1, pcn.toUpperCase());
 			}
-			ps2.setString(2, month);
+			long millis=System.currentTimeMillis();  
+			Date date = new Date(millis);
+			ps2.setDate(2, date);
 			ps2.setInt(3, status);
 			ps2.setString(4, deptt);
 			ps2.setString(5, bookTitle);
